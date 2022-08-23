@@ -2,7 +2,6 @@ package com.projexacademy.elearnbackend.ServicesImpl;
 
 import com.projexacademy.elearnbackend.models.Formateur;
 import com.projexacademy.elearnbackend.repositories.FormateurRepository;
-import com.projexacademy.elearnbackend.repositories.NotificationRepository;
 import com.projexacademy.elearnbackend.services.FormateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import java.util.List;
 public class FormateurServiceImpl implements FormateurService {
     @Autowired
     private FormateurRepository formateurRepository;
-    private NotificationRepository notificationRepository;
     @Override
     public List<Formateur> getAllFormateurs() {
         return formateurRepository.findAll();
@@ -30,12 +28,6 @@ public class FormateurServiceImpl implements FormateurService {
 
     @Override
     public Formateur addFormateur(Formateur formateur) {
-        if(!formateur.getNotifications().isEmpty()){
-            formateur.getNotifications().forEach(notification->{
-                notification.setUser(formateur);
-                notificationRepository.saveAndFlush(notification);
-            });
-        }
         return formateurRepository.save(formateur);
     }
 

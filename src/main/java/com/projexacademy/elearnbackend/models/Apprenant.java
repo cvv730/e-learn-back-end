@@ -31,8 +31,8 @@ public class Apprenant extends User {
             inverseJoinColumns = @JoinColumn(name = "formationId"))
     private List<Formation> formations;
 
-    @OneToMany(mappedBy = "user")
-    private List<Notification> notifications=new ArrayList<>();
+    //@OneToMany(mappedBy = "user")
+    //private List<Notification> notifications=new ArrayList<>();
 
     public Apprenant(String nom, String prenom, String email, String tel, Date date, String pass, String ncin, String pseudo) {
         super(nom,prenom,email,tel,date,pass,ncin,pseudo);

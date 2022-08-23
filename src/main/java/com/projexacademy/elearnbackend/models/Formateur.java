@@ -2,6 +2,7 @@ package com.projexacademy.elearnbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@Getter
 @Entity
 //@DiscriminatorValue("formateur")
 /*
@@ -33,10 +35,9 @@ public class Formateur extends User  {
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "formationId"))
     private List<Formation> formations= new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-//    @JsonIgnore
-    private List<Notification> notifications=new ArrayList<>();
+     @OneToMany(mappedBy = "formateur")
+     @JsonIgnore
+     private List<NotificationFormateur> notifications=new ArrayList<>();
 
     public Formateur(String nom, String prenom, String email, String tel, Date date, String pass, String ncin, String pseudo, String spec, String grade) {
         super(nom,prenom,email,tel,date,pass,ncin,pseudo);

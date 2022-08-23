@@ -26,8 +26,6 @@ public class ELearnBackEndApplication implements CommandLineRunner   {
     @Autowired
    private FormationRepository formationRepository;
     @Autowired
-    NotificationRepository notificationRepository;
-    @Autowired
     CatRepository catRepository;
 
     @Override
@@ -36,11 +34,7 @@ public class ELearnBackEndApplication implements CommandLineRunner   {
                 "pass","ncin","pseudo","spec","grade");
         this.formateurRepository.save(formateur);
 
-        Notification notification= new Notification("title","desc",UserType.FORMATEUR.value);
 
-        formateur.getNotifications().add(notification);
-        notification.setUser(formateur);
-        this.notificationRepository.save(notification);
         Formation formation=new Formation("titre","desc",new Date(),11);
 
         formation.getFormateurs().add(formateur);
