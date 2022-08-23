@@ -1,10 +1,8 @@
 package com.projexacademy.elearnbackend.controllers;
 import com.projexacademy.elearnbackend.models.Apprenant;
-import com.projexacademy.elearnbackend.repositories.ApprenantRepository;
+import com.projexacademy.elearnbackend.services.ApprenantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -12,13 +10,37 @@ import java.util.List;
 @RequestMapping("api/apprenants/")
 public class ApprenantController {
 
-
     @Autowired
-    private ApprenantRepository apprenantRepository;
+    private ApprenantService apprenantService;
 
+    @PostMapping("add")
+    public Apprenant addApprenant(@RequestBody Apprenant apprenant){
+        return apprenantService.addApprenant(apprenant);
+    }
+
+    @PutMapping("update")
+    public Apprenant updateApprenant(@RequestBody Apprenant apprenant){
+        return apprenantService.updateApprenant(apprenant);
+    }
+    @DeleteMapping("delete/{id}")
+    public boolean deleteApprenant(@PathVariable Long id){
+        return apprenantService.deleteApprenant(id);
+    }
+
+    @GetMapping("apprenant/{id}")
+    public Apprenant getById(@PathVariable Long id){
+        return apprenantService.getById(id);
+    }
 
     @GetMapping("")
     public List<Apprenant> getAllApprenants(){
-        return apprenantRepository.findAll();
+        return apprenantService.getAllApprenants();
     }
+
+    @GetMapping("formation/{id}")
+    public List<Apprenant> getByFormationId(@PathVariable Long id){
+        return apprenantService.getAllApprenantsByFormationId(id);
+    }
+
+
 }

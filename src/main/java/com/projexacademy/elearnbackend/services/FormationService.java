@@ -8,6 +8,7 @@ public interface FormationService {
 
     List<Formation> getAllFormtions();
     List<Formation> getAllFormationsByFormateurId(Long id);
+    List<Formation> getAllFormationsByApprenantId(Long id);
     Formation getById(Long id);
     Formation addFormation(Formation formation);
     Formation updateFormation(Formation formation);

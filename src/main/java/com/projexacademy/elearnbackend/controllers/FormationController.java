@@ -43,5 +43,10 @@ public class FormationController {
     public List<Formation> getByFormateurId(@PathVariable Long id){
         return formationService.getAllFormationsByFormateurId(id);
     }
+
+    @GetMapping("apprenant/{id}")
+    public List<Formation> getByApprenantId(@PathVariable Long id){
+        return formationService.getAllFormationsByApprenantId(id);
+    }
 }
 

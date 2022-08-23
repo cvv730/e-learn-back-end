@@ -12,4 +12,6 @@ import java.util.List;
 @Repository
 public interface FormationRepository extends  JpaRepository<Formation,Long>  {
     List<Formation> findByFormateurs_UserId(Long Id);
+    List<Formation> findByApprenants_UserId(Long Id);
+
 }

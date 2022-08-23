@@ -22,6 +22,11 @@ public class FormationServiceImpl implements FormationService {
     }
 
     @Override
+    public List<Formation> getAllFormationsByApprenantId(Long id) {
+        return formationRepository.findByApprenants_UserId(id);
+    }
+
+    @Override
     public Formation getById(Long id) {
         return formationRepository.findById(id).get();
     }
