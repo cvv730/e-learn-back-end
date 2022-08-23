@@ -1,11 +1,6 @@
 package com.projexacademy.elearnbackend;
-import com.projexacademy.elearnbackend.models.Admin;
-import com.projexacademy.elearnbackend.models.Apprenant;
-import com.projexacademy.elearnbackend.models.Formateur;
-import com.projexacademy.elearnbackend.repositories.AdminRepository;
-import com.projexacademy.elearnbackend.repositories.ApprenantRepository;
-import com.projexacademy.elearnbackend.repositories.FormateurRepository;
-import com.projexacademy.elearnbackend.repositories.FormationRepository;
+import com.projexacademy.elearnbackend.models.*;
+import com.projexacademy.elearnbackend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -30,12 +25,43 @@ public class ELearnBackEndApplication implements CommandLineRunner   {
     private AdminRepository adminRepository;
     @Autowired
    private FormationRepository formationRepository;
+    @Autowired
+    NotificationRepository notificationRepository;
+    @Autowired
+    CatRepository catRepository;
 
     @Override
     public void run(String... args) throws Exception {
-        this.formateurRepository.save(new Formateur("nom","prenom","email","tel",new Date(),"pass","ncin","pseudo","spec","grade"));
-        this.apprenantRepository.save(new Apprenant("nom","prenom","email","tel",new Date(),"pass","ncin","pseudo"));
-        this.adminRepository.save(new Admin("nom","prenom","email","tel",new Date(),"pass","ncin","pseudo"));
-     //  this.formationRepository.save(new Formation("titre"));
+        Formateur formateur=new Formateur("nom","prenom","email","tel",new Date(),
+                "pass","ncin","pseudo","spec","grade");
+        this.formateurRepository.save(formateur);
+
+        Notification notification= new Notification("title","desc",UserType.FORMATEUR.value);
+
+        formateur.getNotifications().add(notification);
+        notification.setUser(formateur);
+        this.notificationRepository.save(notification);
+        Formation formation=new Formation("titre","desc",new Date(),11);
+
+        formation.getFormateurs().add(formateur);
+        Cat cat=new Cat("title","desc");
+        this.catRepository.save(    cat);
+        cat.getFormations().add(formation);
+
+        formation.getCatalogues().add(cat);
+
+        formateur.getFormations().add(formation);
+
+        this.formationRepository.save(formation);
+        this.catRepository.saveAndFlush(    cat);
+        this.formateurRepository.saveAndFlush(formateur);
+        Apprenant apprenant=new Apprenant("nom","prenom","email","tel",new Date(),
+                "pass","ncin","pseudo");
+        this.apprenantRepository.save(apprenant);
+        Admin admin=new Admin("nom","prenom","email","tel",new Date(),
+                "pass","ncin","pseudo");
+        this.adminRepository.save(admin);
+
+
         }
 }

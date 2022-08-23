@@ -9,10 +9,12 @@ import java.util.Date;
 @Data
 @Entity
 @AllArgsConstructor
-@DiscriminatorValue("admin")
+//@DiscriminatorValue("admin")
 public class Admin extends User {
+    //private String userType=UserType.ADMIN.value;
     public Admin(String nom, String prenom, String email, String tel, Date date, String pass, String ncin, String pseudo) {
         super(nom,prenom,email,tel,date,pass,ncin,pseudo);
+        this.setUserType(UserType.ADMIN.value);
 
     }
 }
